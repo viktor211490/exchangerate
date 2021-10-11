@@ -1,15 +1,23 @@
 package com.example.exchangerate.models;
 
+import javax.persistence.*;
+
+@Entity
 public class ExchangeName {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
+    private Long id;
+
     private String name;
+    private String name_ru;
     private String shortName;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -29,4 +37,11 @@ public class ExchangeName {
         this.shortName = shortName;
     }
 
+    public String getName_ru() {
+        return name_ru;
+    }
+
+    public void setName_ru(String name_ru) {
+        this.name_ru = name_ru;
+    }
 }
