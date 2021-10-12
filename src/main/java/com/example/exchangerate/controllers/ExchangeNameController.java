@@ -11,7 +11,7 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/unit")
 public class ExchangeNameController {
     private final ExchangeUnitRepository exchangeUnitRepository;
 
@@ -20,7 +20,7 @@ public class ExchangeNameController {
         this.exchangeUnitRepository = exchangeUnitRepository;
     }
 
-    @PostMapping(value = "/exchangeName")
+    @PostMapping(value = "/create")
     public ResponseEntity<?> create(@RequestBody ExchangeUnit exchangeUnit) {
         try {
             var result = exchangeUnitRepository.save(exchangeUnit);
@@ -30,26 +30,26 @@ public class ExchangeNameController {
         }
     }
 
-    @GetMapping(value = "/exchangeNames")
+    @GetMapping(value = "/getList")
     public ResponseEntity<Iterable<ExchangeUnit>> read() {
         final Iterable<ExchangeUnit> names = exchangeUnitRepository.findAll();
         return names.iterator().hasNext() ? new ResponseEntity<>(names, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "/exchangeNames/{id}")
+    @GetMapping(value = "/getOne/{id}")
     public ResponseEntity<Optional<ExchangeUnit>> readById(@PathVariable(name = "id") Long id) {
         final Optional<ExchangeUnit> unit = exchangeUnitRepository.findById(id);
         return unit.isPresent() ? new ResponseEntity<>(unit, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @PutMapping(value = "/exchangeNames")
+    @PutMapping(value = "/update")
     public ResponseEntity<?> update(@RequestBody ExchangeUnit exchangeUnit) {
         final ExchangeUnit exchangeName1 = exchangeUnitRepository.save(exchangeUnit);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @DeleteMapping(value = "/exchangeNames/{id}")
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
         try {
             exchangeUnitRepository.deleteById(id);

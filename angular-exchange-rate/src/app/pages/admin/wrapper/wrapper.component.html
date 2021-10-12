@@ -1,0 +1,22 @@
+<mat-toolbar color="#1976d2" class="example-toolbar">
+  <button mat-icon-button (click)="drawer.toggle()">
+    <mat-icon>menu</mat-icon>
+  </button>
+</mat-toolbar>
+<mat-sidenav-container color="primary">
+  <mat-sidenav #drawer mode="side" [(opened)]="show">
+    <mat-list role="list">
+      <mat-list-item [routerLink]="'unit'">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span>Валюты</span>
+      </mat-list-item>
+      <mat-list-item [routerLink]="'unitlinks'">
+        <mat-icon mat-list-icon>home</mat-icon>
+        <span>Соотношение валют на сегодня</span>
+      </mat-list-item>
+    </mat-list>
+  </mat-sidenav>
+  <mat-sidenav-container style="padding: 4px !important;">
+    <router-outlet></router-outlet>
+  </mat-sidenav-container>
+</mat-sidenav-container>
