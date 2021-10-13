@@ -9,7 +9,6 @@ import {Unit} from "../models/unit";
 })
 export class UnitService {
   private baseUrl = 'http://localhost:8080' + '/api/unit';
-  // private baseUrl = window.location.origin + '/api/unit';
 
   constructor(private http: HttpClient) {
   }
@@ -18,15 +17,8 @@ export class UnitService {
     return this.http.get<Unit>(this.baseUrl+'/getone' + '/' + id);
   }
 
-  // getAll(): Observable<Unit[]> {
-  //   return this.http.get<Unit[]>(this.baseUrl + '/getList');
-  // }
-  public getAll(): Observable<any> {
-    return this.http.get<any>(this.baseUrl+ '/getList', {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
+  getAll(): Observable<any> {
+    return this.http.get<any>(this.baseUrl+ '/getList');
   }
 
   create(model: Unit): Observable<Unit> {

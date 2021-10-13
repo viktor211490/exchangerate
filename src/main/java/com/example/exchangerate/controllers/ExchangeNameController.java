@@ -20,6 +20,7 @@ public class ExchangeNameController {
         this.exchangeUnitRepository = exchangeUnitRepository;
     }
 
+    @CrossOrigin
     @PostMapping(value = "/create")
     public ResponseEntity<?> create(@RequestBody ExchangeUnit exchangeUnit) {
         try {
@@ -30,18 +31,21 @@ public class ExchangeNameController {
         }
     }
 
+    @CrossOrigin
     @GetMapping(value = "/getList")
     public ResponseEntity<Iterable<ExchangeUnit>> read() {
         final Iterable<ExchangeUnit> names = exchangeUnitRepository.findAll();
         return names.iterator().hasNext() ? new ResponseEntity<>(names, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @CrossOrigin
     @GetMapping(value = "/getOne/{id}")
     public ResponseEntity<Optional<ExchangeUnit>> readById(@PathVariable(name = "id") Long id) {
         final Optional<ExchangeUnit> unit = exchangeUnitRepository.findById(id);
         return unit.isPresent() ? new ResponseEntity<>(unit, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @CrossOrigin
     @PutMapping(value = "/update")
     public ResponseEntity<?> update(@RequestBody ExchangeUnit exchangeUnit) {
         final ExchangeUnit exchangeName1 = exchangeUnitRepository.save(exchangeUnit);
@@ -49,6 +53,7 @@ public class ExchangeNameController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @CrossOrigin
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
         try {

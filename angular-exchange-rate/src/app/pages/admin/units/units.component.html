@@ -1,1 +1,54 @@
-<p>units works!</p>
+
+<div class="loader" *ngIf="!isLoaded"></div>
+
+<!--<div class="flex-center" *ngIf="isLoaded">-->
+<!--  <div class="container-fluid">-->
+<!--    <h1 id="tableLabel">Города</h1>-->
+<!--    <table class="table table-striped">-->
+<!--      <thead>-->
+<!--      <tr>-->
+<!--        <td>Название</td>-->
+<!--        <td></td>-->
+<!--        <td></td>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody>-->
+<!--      <tr *ngFor="let ProjectTypes of units">-->
+<!--        <ng-template [ngTemplateOutlet]="loadTemplate(ProjectTypes)"-->
+<!--                     [ngTemplateOutletContext]="{ $implicit: ProjectTypes}">-->
+<!--        </ng-template>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--    <div>{{statusMessage}}</div>-->
+
+
+<!--    &lt;!&ndash;шаблон для чтения&ndash;&gt;-->
+<!--    <ng-template #readOnlyTemplate let-projectTypes>-->
+<!--      <td>{{projectTypes.name}}</td>-->
+<!--      <td>-->
+<!--        <input type="button" value="Изменить" (click)="edit(projectTypes)" class="btn btn-primary"/>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <input type="button" value="Удалить" (click)="delete(projectTypes)" class="btn btn-danger"/>-->
+<!--      </td>-->
+<!--    </ng-template>-->
+
+<!--    &lt;!&ndash;шаблон для редактирования&ndash;&gt;-->
+<!--    <ng-template #editTemplate>-->
+<!--      <td>-->
+<!--        <input type="text" [(ngModel)]="edited.code" class="form-control"/>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <input type="text" [(ngModel)]="edited.nameRu" class="form-control"/>-->
+<!--      </td>-->
+
+<!--      <td>-->
+<!--        <input type="button" value="Сохранить" (click)="save()" class="btn btn-primary"/>-->
+<!--      </td>-->
+<!--      <td>-->
+<!--        <input type="button" value="Отмена" (click)="cancel()" class="btn btn-danger"/>-->
+<!--      </td>-->
+<!--    </ng-template>-->
+<!--  </div>-->
+<!--</div>-->

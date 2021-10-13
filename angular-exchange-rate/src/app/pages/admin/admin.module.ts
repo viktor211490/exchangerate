@@ -6,6 +6,7 @@ import {RouterModule} from "@angular/router";
 import {AdminRoutingModule} from "./admin-routing.module";
 import {UnitsComponent} from "./units/units.component";
 import {UnitsLinkComponent} from "./units-link/units-link.component";
+import {FormsModule} from "@angular/forms";
 
 
 
@@ -20,6 +21,7 @@ import {UnitsLinkComponent} from "./units-link/units-link.component";
     CustomMatModule,
     RouterModule,
     AdminRoutingModule,
+    FormsModule,
 
   ]
 })

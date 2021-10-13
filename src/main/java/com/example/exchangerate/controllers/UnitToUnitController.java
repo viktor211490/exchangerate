@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,14 +24,14 @@ public class UnitToUnitController {
     }
 
     @GetMapping(value = "/get")
-    public ResponseEntity<List<UnitToUnit>> get() {
+    public ResponseEntity<Iterable<UnitToUnit>> get() {
 
         var result = unitToUnitRepository.findAll();
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 
-    @GetMapping(value = "/get/id")
+    @GetMapping(value = "/getById")
     public ResponseEntity<Optional<UnitToUnit>> get(@RequestBody UnitToUnitId id) {
 
         var result = unitToUnitRepository.findById(id);
@@ -61,10 +62,13 @@ public class UnitToUnitController {
         }
     }
 
-    @DeleteMapping(value = "/delete")
-    public ResponseEntity<?> delete(@RequestBody UnitToUnitId id) {
+    @DeleteMapping(value = "/delete/{id}")
+    public ResponseEntity<?> delete(@PathVariable(name = "id") String id) {
         try {
-            unitToUnitRepository.deleteById(id);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+            LocalDate localDate = LocalDate.parse(id, formatter);
+            var res = unitToUnitRepository.findAllById_Date(localDate);
+            unitToUnitRepository.deleteAll(res);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
