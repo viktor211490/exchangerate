@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import {UnitService} from "../services/unit.service";
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,10 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'angular-exchange-rate';
 
-  constructor(private router: Router){}
+  constructor(
+    private router: Router,
+    private unitService: UnitService,
+  ){}
 
   isAdmin() {
     return this.router.url.includes("admin");

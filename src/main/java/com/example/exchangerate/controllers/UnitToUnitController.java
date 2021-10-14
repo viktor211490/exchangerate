@@ -23,6 +23,7 @@ public class UnitToUnitController {
         this.unitToUnitRepository = unitToUnitRepository;
     }
 
+    @CrossOrigin
     @GetMapping(value = "/get")
     public ResponseEntity<Iterable<UnitToUnit>> get() {
 
@@ -31,14 +32,18 @@ public class UnitToUnitController {
 
     }
 
-    @GetMapping(value = "/getById")
-    public ResponseEntity<Optional<UnitToUnit>> get(@RequestBody UnitToUnitId id) {
+    @CrossOrigin
+    @GetMapping(value = "/getByDate/{date}")
+    public ResponseEntity<List<UnitToUnit>> get(@PathVariable(name = "date") String data) {
 
-        var result = unitToUnitRepository.findById(id);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        LocalDate localDate = LocalDate.parse(data, formatter);
+        var result = unitToUnitRepository.findById_Date(localDate);
         return result.isEmpty() ? new ResponseEntity<>(result, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
 
+    @CrossOrigin
     @PostMapping(value = "/create")
     public ResponseEntity<UnitToUnit> create(@RequestBody UnitToUnit unitToUnit) {
         try {
@@ -52,6 +57,19 @@ public class UnitToUnitController {
         }
     }
 
+    @CrossOrigin
+    @PostMapping(value = "/createList")
+    public ResponseEntity<Iterable<UnitToUnit>> createList(@RequestBody List<UnitToUnit> unitToUnit) {
+        try {
+
+            var result = unitToUnitRepository.saveAll(unitToUnit);
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @CrossOrigin
     @PutMapping(value = "/update")
     public ResponseEntity<?> update(@RequestBody UnitToUnit unit) {
         try {
@@ -62,11 +80,12 @@ public class UnitToUnitController {
         }
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public ResponseEntity<?> delete(@PathVariable(name = "id") String id) {
+    @CrossOrigin
+    @DeleteMapping(value = "/delete/{data}")
+    public ResponseEntity<?> delete(@PathVariable(name = "data") String data) {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
-            LocalDate localDate = LocalDate.parse(id, formatter);
+            LocalDate localDate = LocalDate.parse(data, formatter);
             var res = unitToUnitRepository.findAllById_Date(localDate);
             unitToUnitRepository.deleteAll(res);
             return new ResponseEntity<>(HttpStatus.OK);

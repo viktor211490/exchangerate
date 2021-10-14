@@ -14,13 +14,7 @@ public class ExchangeUnit {
 
     @Column(name = "name_ru")
     private String nameRu;
-    @Column(name = "name_eng")
-    private String nameEng;
     private String code;
-    private String image;
-
-//    @OneToMany
-//    private List<UnitToUnit> unitToUnits;
 
 
     public ExchangeUnit() {
@@ -28,9 +22,7 @@ public class ExchangeUnit {
 
     public ExchangeUnit(String nameRu, String nameEng, String code, String image) {
         this.nameRu = nameRu;
-        this.nameEng = nameEng;
         this.code = code;
-        this.image = image;
     }
 
     public Long getId() {
@@ -45,14 +37,6 @@ public class ExchangeUnit {
         this.nameRu = nameRu;
     }
 
-    public String getNameEng() {
-        return nameEng;
-    }
-
-    public void setNameEng(String nameEng) {
-        this.nameEng = nameEng;
-    }
-
     public String getCode() {
         return code;
     }
@@ -61,11 +45,4 @@ public class ExchangeUnit {
         this.code = code;
     }
 
-    public String getImage() {
-        return image;
-    }
-
-    public void setImage(String image) {
-        this.image = image;
-    }
 }
