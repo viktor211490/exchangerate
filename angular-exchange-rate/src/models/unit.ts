@@ -1,8 +1,6 @@
 export class Unit {
-  code: string
-  id:string
-  image: string
-  nameEng: string
-  nameRu: string
+  code!: string
+  id!:string
+  nameRu!: string
 }
 

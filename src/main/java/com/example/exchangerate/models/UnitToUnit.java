@@ -14,15 +14,13 @@ public class UnitToUnit {
 
     private Double value;
 
-    private String description;
 
     public UnitToUnit() {
     }
 
-    public UnitToUnit(UnitToUnitId id, Double value, String description) {
+    public UnitToUnit(UnitToUnitId id, Double value) {
         this.id = id;
         this.value = value;
-        this.description = description;
     }
 
     public Double getValue() {
@@ -41,11 +39,4 @@ public class UnitToUnit {
         this.id = id;
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

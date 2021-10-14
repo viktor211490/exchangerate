@@ -2,11 +2,23 @@ package com.example.exchangerate.controllers;
 
 import com.example.exchangerate.models.ExchangeUnit;
 import com.example.exchangerate.repositories.ExchangeUnitRepository;
+import net.minidev.json.JSONObject;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -31,6 +43,7 @@ public class ExchangeNameController {
         }
     }
 
+
     @CrossOrigin
     @GetMapping(value = "/getList")
     public ResponseEntity<Iterable<ExchangeUnit>> read() {
@@ -53,12 +66,13 @@ public class ExchangeNameController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     @CrossOrigin
     @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
         try {
             exchangeUnitRepository.deleteById(id);
-            return new ResponseEntity<>("Удалено",HttpStatus.OK);
+            return new ResponseEntity<>("Удалено", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }

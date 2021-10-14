@@ -11,4 +11,7 @@ import java.util.List;
 public interface UnitToUnitRepository extends CrudRepository<UnitToUnit, UnitToUnitId> {
     void deleteById_Date(LocalDate date);
     List<UnitToUnit> findAllById_Date(LocalDate date);
+
+    List<UnitToUnit> findById_Date(LocalDate date);
+
 }

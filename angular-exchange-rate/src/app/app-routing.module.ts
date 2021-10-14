@@ -1,14 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { UnitsComponent } from './pages/admin/units/units.component';
+import {ExchangeCardComponent} from "./pages/exchange-card/exchange-card.component";
+
 
 const routes: Routes = [
-  {path: '', component: AppComponent, pathMatch: 'full'},
+  {
+    path: '',
+    component: AppComponent,
+    children: [
+      {
+        path: 'card',
+        component: ExchangeCardComponent,
+      }
+    ]
+  },
   {path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
   {
     path: '**',
-    redirectTo: '/',
+    redirectTo: '/card',
     pathMatch: 'full'
 },
 ];

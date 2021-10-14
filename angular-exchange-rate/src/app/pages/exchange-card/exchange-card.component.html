@@ -1,0 +1,130 @@
+<div class="toolbar" role="banner">
+  <img
+    width="60"
+    alt="Курс"
+    src="/assets/pngwing.com.png"/>
+  <span>Курс валют</span>
+  <!-- TODO:Здесь контент для хедера -->
+  <button (click)="refreshCourses()">asda</button>
+</div>
+
+<div class="content" role="main">
+
+
+  <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
+    <title>Gray Clouds Background</title>
+    <path id="Path_39" data-name="Path 39"
+          d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z"
+          transform="translate(142.69 -634.312)" fill="#eee"/>
+  </svg>
+</div>
+
+<div *ngIf="!isLoad"> Загрузка</div>
+<div *ngIf="isLoad">
+<!--  <div style="background-color: #125699">-->
+<!--    <mat-form-field appearance="fill" style="width: 70px">-->
+<!--      <mat-select [(value)]="selected1">-->
+<!--        <mat-option *ngFor="let unit of dataSource" [value]="unit.code">-->
+<!--          {{unit.code}}-->
+<!--        </mat-option>-->
+<!--      </mat-select>-->
+<!--    </mat-form-field>-->
+<!--    <mat-form-field appearance="fill">-->
+
+<!--      <input matInput type="text" [(ngModel)]="select1Value" style="color: white; font-size: large">-->
+<!--      <button *ngIf="select1Value" matSuffix mat-icon-button aria-label="Clear" (click)="select1Value='1'">-->
+<!--        <mat-icon>close</mat-icon>-->
+<!--      </button>-->
+<!--    </mat-form-field>-->
+
+<!--  </div>-->
+  <div style="width: 35%; margin: 50px auto auto;">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Конвертер валют</mat-card-title>
+        <!--        <mat-card-subtitle>тут дата</mat-card-subtitle>-->
+      </mat-card-header>
+      <!--      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">-->
+      <mat-card-content>
+
+        <mat-form-field appearance="fill" style="width: 25%;font-size: large">
+          <mat-select [(value)]="selected1">
+            <mat-option *ngFor="let unit of dataSource" [value]="unit.code">
+              {{unit.code}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="font-size: large; width: 70%;">
+
+          <input matInput type="text" [(ngModel)]="select1Value" style="color: white;">
+          <button *ngIf="select1Value" matSuffix mat-icon-button aria-label="Clear" (click)="select1Value='1'">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+        <hr>
+        <mat-form-field appearance="fill" style="width: 25%;font-size: large">
+          <mat-select [(value)]="selected2">
+            <mat-option *ngFor="let unit of dataSource" [value]="unit.code">
+              {{unit.code}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" style="font-size: large; width: 70%;">
+
+          <input matInput type="text" [(ngModel)]="select2Value" style="color: white;">
+          <button *ngIf="select1Value" matSuffix mat-icon-button aria-label="Clear" (click)="select1Value='1'">
+            <mat-icon>close</mat-icon>
+          </button>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+
+  <div style=" width: 100%; display: flex">
+    <table mat-table [dataSource]="links" class="mat-elevation-z8" style="margin: 20pt auto auto;">
+
+      <ng-container matColumnDef="code">
+        <th mat-header-cell *matHeaderCellDef> image</th>
+        <td mat-cell *matCellDef="let element"> {{(1 / element.value).toFixed(2)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="nameRu">
+        <th mat-header-cell *matHeaderCellDef> Name</th>
+        <td mat-cell *matCellDef="let element"> {{element.id.firstUnitId.nameRu}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+
+  <div style="width: 30%; margin: 50px auto auto;">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <div mat-card-avatar class="example-header-image"></div>
+        <mat-card-title>Shiba Inu</mat-card-title>
+        <mat-card-subtitle>Dog Breed</mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+      <mat-card-content>
+        <p>
+          The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
+          A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
+          bred for hunting.
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>LIKE</button>
+        <button mat-button>SHARE</button>
+      </mat-card-actions>
+    </mat-card>
+
+  </div>
+
+</div>
+

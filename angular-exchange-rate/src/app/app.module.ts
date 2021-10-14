@@ -7,19 +7,22 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AdminModule} from './pages/admin/admin.module';
 import {HttpClientModule} from "@angular/common/http";
+import { ExchangeCardComponent } from './pages/exchange-card/exchange-card.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
   declarations: [
     AppComponent,
+    ExchangeCardComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    AdminModule,
     BrowserAnimationsModule,
     CustomMatModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
