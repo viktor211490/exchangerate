@@ -21,23 +21,23 @@
 
 <div *ngIf="!isLoad"> Загрузка</div>
 <div *ngIf="isLoad">
-<!--  <div style="background-color: #125699">-->
-<!--    <mat-form-field appearance="fill" style="width: 70px">-->
-<!--      <mat-select [(value)]="selected1">-->
-<!--        <mat-option *ngFor="let unit of dataSource" [value]="unit.code">-->
-<!--          {{unit.code}}-->
-<!--        </mat-option>-->
-<!--      </mat-select>-->
-<!--    </mat-form-field>-->
-<!--    <mat-form-field appearance="fill">-->
+  <!--  <div style="background-color: #125699">-->
+  <!--    <mat-form-field appearance="fill" style="width: 70px">-->
+  <!--      <mat-select [(value)]="selected1">-->
+  <!--        <mat-option *ngFor="let unit of dataSource" [value]="unit.code">-->
+  <!--          {{unit.code}}-->
+  <!--        </mat-option>-->
+  <!--      </mat-select>-->
+  <!--    </mat-form-field>-->
+  <!--    <mat-form-field appearance="fill">-->
 
-<!--      <input matInput type="text" [(ngModel)]="select1Value" style="color: white; font-size: large">-->
-<!--      <button *ngIf="select1Value" matSuffix mat-icon-button aria-label="Clear" (click)="select1Value='1'">-->
-<!--        <mat-icon>close</mat-icon>-->
-<!--      </button>-->
-<!--    </mat-form-field>-->
+  <!--      <input matInput type="text" [(ngModel)]="select1Value" style="color: white; font-size: large">-->
+  <!--      <button *ngIf="select1Value" matSuffix mat-icon-button aria-label="Clear" (click)="select1Value='1'">-->
+  <!--        <mat-icon>close</mat-icon>-->
+  <!--      </button>-->
+  <!--    </mat-form-field>-->
 
-<!--  </div>-->
+  <!--  </div>-->
   <div style="width: 35%; margin: 50px auto auto;">
     <mat-card class="example-card">
       <mat-card-header>
@@ -87,7 +87,12 @@
   </div>
 
   <div style=" width: 100%; display: flex">
-    <table mat-table [dataSource]="links" class="mat-elevation-z8" style="margin: 20pt auto auto;">
+    <mat-card class="demo-inline-calendar-card" style="margin-top: 20pt; width: 20%">
+      <mat-calendar (selectedChange)="getByDate( $event)"></mat-calendar>
+    </mat-card>
+    <!--    <p>Selected date: {{selectedDate}}</p>-->
+
+    <table mat-table [dataSource]="links" class="mat-elevation-z8" style="margin: 20pt auto auto 10px;">
 
       <ng-container matColumnDef="code">
         <th mat-header-cell *matHeaderCellDef> image</th>

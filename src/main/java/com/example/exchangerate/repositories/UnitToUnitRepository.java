@@ -14,4 +14,7 @@ public interface UnitToUnitRepository extends CrudRepository<UnitToUnit, UnitToU
 
     List<UnitToUnit> findById_Date(LocalDate date);
 
+    List<UnitToUnit> findById_DateBetween(LocalDate dateStart, LocalDate dateEnd);
+
+
 }

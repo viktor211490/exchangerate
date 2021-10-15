@@ -20,6 +20,7 @@ export interface IUnit {
   styleUrls: ['./exchange-card.component.css']
 })
 export class ExchangeCardComponent implements OnInit {
+  selectedDate: Date | null;
   selected1 = "RU";
   select1Value = "1";
   selected2 = "USD";
@@ -52,6 +53,10 @@ export class ExchangeCardComponent implements OnInit {
       links: this.unitToUnitService.getAll(),
       old: this.bankDataService.getAll()
     }).subscribe(value => {
+      var event = new Date();
+      var dateString = event.toISOString().split("T")[0];
+      console.log(dateString);
+
       this.units = value.units;
       this.links = value.links;
       // console.log(this.links);
@@ -68,43 +73,14 @@ export class ExchangeCardComponent implements OnInit {
   }
 
   refreshCourses(){
-    // this.bankDataService.getAll().subscribe(value => {
-    //   let toDo = JSON.stringify(value.rates)
-    //   let dd = JSON.parse(toDo);
-    //
-    //   var dateString = new Date().toISOString().split("T")[0];
-    //
-    //     var id = this.units.find(value1 => value1.code === 'RU');
-    //   this.newLinks = [];
-    //   for (let ddKey in dd) {
-    //
-    //     // // @ts-ignore
-    //
-    //     this.newLinks.push(
-    //       {
-    //         value: dd[ddKey],
-    //         id: {
-    //           date: dateString,
-    //           // @ts-ignore
-    //           firstUnitId: this.units.find(value1 => value1.code === ddKey),
-    //           // @ts-ignore
-    //           secondUnitId: id,
-    //         },
-    //       }
-    //     )
-    //   }
-    //
-    //   // console.log(this.newLinks);
-    //   // TODO: Добавить адекватный вызов
-    //   // this.unitToUnitService.createlist(this.newLinks).subscribe(value1 => {
-    //   //   console.log(value1);
-    //   // });
-    // })
     this.bankDataService.getAll().subscribe(value => {
       let jsonToString = JSON.stringify(value.Valute)
       let dd = JSON.parse(jsonToString);
-      var dateString = new Date(2021,10,14).toISOString().split("T")[0];
-      console.log(dateString);
+      var data = new Date(2021,10,12);
+      data.setDate(data.getDate()+1);
+      data.setMonth(data.getMonth()-1);
+      var dateString = data.toISOString().split("T")[0];
+      // console.log(dateString);
       var id = this.units.find(value1 => value1.code === 'RU');
       for (let ddKey in dd) {
         // console.log(dd[ddKey].Value);
@@ -121,10 +97,20 @@ export class ExchangeCardComponent implements OnInit {
           }
         )
       }
-      console.log(this.newLinks);
-        this.unitToUnitService.createlist(this.newLinks).subscribe(value1 => {
-          console.log(value1);
-        });
+      // console.log(this.newLinks);
+        // this.unitToUnitService.createlist(this.newLinks).subscribe(value1 => {
+        //   console.log(value1);
+        // });
+    })
+  }
+
+  getByDate( event: Date){
+    event.setDate(event.getDate()+1)
+    event.setMonth(event.getMonth())
+    var dateString = event.toISOString().split("T")[0];
+    console.log(dateString);
+    this.unitToUnitService.getByDate(dateString).subscribe(value => {
+      console.log(value);
     })
   }
 }
