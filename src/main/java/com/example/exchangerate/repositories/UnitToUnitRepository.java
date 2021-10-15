@@ -12,7 +12,9 @@ public interface UnitToUnitRepository extends CrudRepository<UnitToUnit, UnitToU
     void deleteById_Date(LocalDate date);
     List<UnitToUnit> findAllById_Date(LocalDate date);
 
-    List<UnitToUnit> findById_Date(LocalDate date);
+    List<UnitToUnit> findById_DateOrderById(LocalDate date);
+
+
 
     List<UnitToUnit> findById_DateBetween(LocalDate dateStart, LocalDate dateEnd);
 

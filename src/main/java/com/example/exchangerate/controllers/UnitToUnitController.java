@@ -38,8 +38,8 @@ public class UnitToUnitController {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
         LocalDate localDate = LocalDate.parse(data, formatter);
-        var result = unitToUnitRepository.findById_Date(localDate);
-        return result.isEmpty() ? new ResponseEntity<>(result, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        var result = unitToUnitRepository.findById_DateOrderById(localDate);
+        return new ResponseEntity<>(result, HttpStatus.OK);
 
     }
 

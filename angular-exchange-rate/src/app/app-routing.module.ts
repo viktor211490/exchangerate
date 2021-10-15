@@ -10,7 +10,7 @@ const routes: Routes = [
     component: AppComponent,
     children: [
       {
-        path: 'card',
+        path: '',
         component: ExchangeCardComponent,
       }
     ]
@@ -18,7 +18,7 @@ const routes: Routes = [
   {path: 'admin', loadChildren: () => import('./pages/admin/admin.module').then(m => m.AdminModule)},
   {
     path: '**',
-    redirectTo: '/card',
+    redirectTo: '',
     pathMatch: 'full'
 },
 ];

@@ -47,7 +47,7 @@ public class ExchangeNameController {
     @CrossOrigin
     @GetMapping(value = "/getList")
     public ResponseEntity<Iterable<ExchangeUnit>> read() {
-        final Iterable<ExchangeUnit> names = exchangeUnitRepository.findAll();
+        final Iterable<ExchangeUnit> names = exchangeUnitRepository.findAllByOrderByNameRu();
         return names.iterator().hasNext() ? new ResponseEntity<>(names, HttpStatus.OK) : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
@@ -72,7 +72,7 @@ public class ExchangeNameController {
     public ResponseEntity<?> delete(@PathVariable(name = "id") Long id) {
         try {
             exchangeUnitRepository.deleteById(id);
-            return new ResponseEntity<>("Удалено", HttpStatus.OK);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
         }

@@ -30,7 +30,7 @@ export class ExchangeCardComponent implements OnInit {
   newLinks: Array<UnitToUnit> = [];
   dataSource: IUnit[];
   isLoad: boolean = true;
-  displayedColumns = ['code', 'nameRu'];
+  displayedColumns = ['code', 'nameRu', 'value'];
 
   constructor(
     private router: Router,
@@ -48,14 +48,15 @@ export class ExchangeCardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoad = false;
+    this.selectedDate = new Date();
+    var dateString = this.selectedDate.toISOString().split("T")[0];
+    console.log(dateString);
     forkJoin({
       units: this.unitService.getAll(),
-      links: this.unitToUnitService.getAll(),
+      links: this.unitToUnitService.getByDate(dateString),
       old: this.bankDataService.getAll()
     }).subscribe(value => {
-      var event = new Date();
-      var dateString = event.toISOString().split("T")[0];
-      console.log(dateString);
+
 
       this.units = value.units;
       this.links = value.links;
@@ -72,45 +73,87 @@ export class ExchangeCardComponent implements OnInit {
     })
   }
 
-  refreshCourses(){
-    this.bankDataService.getAll().subscribe(value => {
-      let jsonToString = JSON.stringify(value.Valute)
-      let dd = JSON.parse(jsonToString);
-      var data = new Date(2021,10,12);
-      data.setDate(data.getDate()+1);
-      data.setMonth(data.getMonth()-1);
-      var dateString = data.toISOString().split("T")[0];
-      // console.log(dateString);
-      var id = this.units.find(value1 => value1.code === 'RU');
-      for (let ddKey in dd) {
-        // console.log(dd[ddKey].Value);
-        this.newLinks.push(
-          {
-            value: Number((1/dd[ddKey].Value).toFixed(6)),
-            id: {
-              date: dateString,
-              // @ts-ignore
-              firstUnitId: this.units.find(value1 => value1.code === ddKey),
-              // @ts-ignore
-              secondUnitId: id,
-            },
-          }
-        )
-      }
-      // console.log(this.newLinks);
-        // this.unitToUnitService.createlist(this.newLinks).subscribe(value1 => {
-        //   console.log(value1);
-        // });
+  refreshCourses() {
+    // @ts-ignore
+    var dateString = this.selectedDate?.getFullYear() + '-' + this.leftpad(this.selectedDate?.getMonth() + 1, 2) + '-' + this.leftpad(this.selectedDate.getDate(), 2);
+    var checkDate = new Date();
+    // @ts-ignore
+    var checkDateString = checkDate?.getFullYear() + '-' + this.leftpad(checkDate?.getMonth() + 1, 2) + '-' + this.leftpad(checkDate.getDate(), 2);
+
+    if (checkDateString == dateString) {
+      this.bankDataService.getAll().subscribe(value => {
+        let jsonToString = JSON.stringify(value.Valute)
+        let dd = JSON.parse(jsonToString);
+
+        var id = this.units.find(value1 => value1.code === 'RU');
+        for (let ddKey in dd) {
+          // console.log(dd[ddKey].Value);
+          this.newLinks.push(
+            {
+              value: Number((dd[ddKey].Nominal / dd[ddKey].Value).toFixed(6)),
+              id: {
+                date: dateString,
+                // @ts-ignore
+                firstUnitId: this.units.find(value1 => value1.code === ddKey),
+                // @ts-ignore
+                secondUnitId: id,
+              },
+            }
+          )
+        }
+
+        this.unitToUnitService.createlist(this.newLinks).subscribe(value1 => {
+          console.log(value1);
+        });
+      })
+    } else if (this.selectedDate != null && this.selectedDate <= checkDate) {
+      // @ts-ignore
+      var dateToString = this.selectedDate?.getFullYear() + '/' + this.leftpad(this.selectedDate?.getMonth() + 1, 2) + '/' + this.leftpad(this.selectedDate.getDate(), 2);
+
+      this.bankDataService.getAllByDate(dateToString).subscribe(value => {
+        let jsonToString = JSON.stringify(value.Valute)
+        let dd = JSON.parse(jsonToString);
+
+        var id = this.units.find(value1 => value1.code === 'RU');
+        for (let ddKey in dd) {
+          // console.log(dd[ddKey].Value);
+          this.newLinks.push(
+            {
+              value: Number((dd[ddKey].Nominal / dd[ddKey].Value).toFixed(6)),
+              id: {
+                date: dateString,
+                // @ts-ignore
+                firstUnitId: this.units.find(value1 => value1.code === ddKey),
+                // @ts-ignore
+                secondUnitId: id,
+              },
+            }
+          )
+        }
+
+        this.unitToUnitService.createlist(this.newLinks).subscribe(value1 => {
+          console.log(value1);
+        });
+      })
+    }
+
+  }
+
+  getByDate(event: Date) {
+    this.isLoad = false;
+    this.selectedDate = event;
+    console.log(this.selectedDate);
+    var dateString = this.selectedDate?.getFullYear() + '-' + this.leftpad(this.selectedDate?.getMonth() + 1, 2) + '-' + this.leftpad(this.selectedDate.getDate(), 2);
+    console.log(dateString);
+    this.unitToUnitService.getByDate(dateString).subscribe(value => {
+      this.links = value;
+      this.isLoad = true;
     })
   }
 
-  getByDate( event: Date){
-    event.setDate(event.getDate()+1)
-    event.setMonth(event.getMonth())
-    var dateString = event.toISOString().split("T")[0];
-    console.log(dateString);
-    this.unitToUnitService.getByDate(dateString).subscribe(value => {
-      console.log(value);
-    })
+  // @ts-ignore
+  leftpad(val, resultLength = 2, leftpadChar = '0'): string {
+    return (String(leftpadChar).repeat(resultLength)
+      + String(val)).slice(String(val).length);
   }
 }

@@ -7,6 +7,7 @@ import {AdminRoutingModule} from "./admin-routing.module";
 import {UnitsComponent} from "./units/units.component";
 import {UnitsLinkComponent} from "./units-link/units-link.component";
 import {FormsModule} from "@angular/forms";
+import { DialogComponent } from './units/dialog/dialog.component';
 
 
 
@@ -14,7 +15,8 @@ import {FormsModule} from "@angular/forms";
   declarations: [
     WrapperComponent,
     UnitsComponent,
-    UnitsLinkComponent
+    UnitsLinkComponent,
+    DialogComponent
   ],
   imports: [
     CommonModule,
