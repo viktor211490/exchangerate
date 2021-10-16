@@ -1,0 +1,37 @@
+
+mat-sidenav-container {
+  min-height: 93.4vh;
+}
+
+mat-sidenav-container,
+mat-sidenav {
+  padding: 6px;
+}
+
+mat-sidenav {
+  width: 280px;
+}
+
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.list-button {
+  width: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.d-flex {
+  display: flex;
+}
+.mat-toolbar.mat-primary {
+  background: #606388;
+}
+.mat-icon-button{
+    border-radius:0;
+    box-shadow:none;
+}

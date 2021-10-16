@@ -1,0 +1,37 @@
+<div class="loader" *ngIf="isLoaded">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!isLoaded">
+  <div class="container-fluid">
+    <h1 id="tableLabel">Валюты</h1>
+<!--    <button (click)="openDialog(edited)">Создать</button>-->
+    <table class="table table-striped">
+      <thead>
+      <tr class="text-info">
+        <td>Код первой валюты</td>
+        <td>Код второй валюты</td>
+        <td>Дата</td>
+        <td>Значение</td>
+        <td></td>
+        <td></td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let unitLink of links" class="text-light">
+        <td>{{unitLink.id.secondUnitId.code}}</td>
+        <td>{{unitLink.id.firstUnitId.code}}</td>
+        <td>{{unitLink.id.date}}</td>
+        <td>{{unitLink.value}}</td>
+        <td>
+          <input type="button" value="Изменить" (click)="openDialog(unitLink)" class="btn btn-primary"/>
+        </td>
+        <td>
+          <input type="button" value="Удалить" (click)="delete(unitLink)" class="btn btn-danger"/>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <div>{{statusMessage}}</div>
+  </div>
+</div>
