@@ -47,7 +47,6 @@ export class UnitsComponent implements OnInit {
       if (result != null) {
         this.edited = new Unit();
         this.getAll();
-        // this.edited = result;
       }
     });
   }

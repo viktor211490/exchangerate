@@ -290,6 +290,11 @@ svg#clouds {
     visibility: hidden;
   }
 }
+
 table {
   width: 70%;
+}
+.mat-select-panel {
+  background: #888888;
+
 }

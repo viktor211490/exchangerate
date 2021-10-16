@@ -10,7 +10,6 @@ const routers: Routes = [
     path: '',
     component: WrapperComponent,
     children: [
-      //прописать здесь children компоненты для меню админа
 
       {
         path: 'unit',

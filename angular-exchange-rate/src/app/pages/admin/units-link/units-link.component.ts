@@ -33,7 +33,6 @@ export class UnitsLinkComponent implements OnInit {
     var dateString = date.toISOString().split("T")[0];
     this.unitToUnitService.getByDate(dateString).subscribe(value => {
       this.links = value
-      console.log(this.links);
       this.isLoaded = false;
     })
   }

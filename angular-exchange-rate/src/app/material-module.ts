@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {A11yModule} from '@angular/cdk/a11y';
-// import {ClipboardModule} from '@angular/cdk/clipboard';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {PortalModule} from '@angular/cdk/portal';
 import {ScrollingModule} from '@angular/cdk/scrolling';
@@ -46,7 +45,6 @@ import {OverlayModule} from '@angular/cdk/overlay';
 @NgModule({
   exports: [
     A11yModule,
-    // ClipboardModule,
     CdkStepperModule,
     CdkTableModule,
     CdkTreeModule,
@@ -91,7 +89,8 @@ import {OverlayModule} from '@angular/cdk/overlay';
     ScrollingModule,
   ]
 })
-export class CustomMatModule {}
+export class CustomMatModule {
+}
 
 
 /**  Copyright 2021 Google LLC. All Rights Reserved.

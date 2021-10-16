@@ -17,6 +17,9 @@ export class UnitToUnitService {
   getByDate(data: string): Observable<any> {
     return this.http.get<any>(this.baseUrl+'/getByDate' + '/' + data);
   }
+  getByDateCode(data: string, code: string): Observable<any> {
+    return this.http.get<any>(this.baseUrl+'/getByDateCode' + '/' + data+'/'+code);
+  }
 
   getAll(): Observable<any> {
     return this.http.get<any>(this.baseUrl+ '/get');

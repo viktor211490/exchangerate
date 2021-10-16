@@ -56,17 +56,17 @@ export class ExchangeCardComponent implements OnInit {
     this.getAll(dateString, dateString1, dateString2);
   }
 
-  getAll(dateSelected: string, date1: string, datw2: string) {
+  getAll(dateSelected: string, date1: string, date2: string) {
 
     forkJoin({
       units: this.unitService.getAll(),
-      links: this.unitToUnitService.getByDate(dateSelected),
-      linksOneDay: this.unitToUnitService.getByDate(date1),
-      linksThoDays: this.unitToUnitService.getByDate(datw2),
+      links: this.unitToUnitService.getByDateCode(dateSelected, this.code),
+      linksOneDay: this.unitToUnitService.getByDateCode(date1, this.code),
+      linksThoDays: this.unitToUnitService.getByDateCode(date2, this.code),
       old: this.bankDataService.getAll()
     }).subscribe(value => {
       this.dataToMove = [];
-      if (value.links.length < 1) {
+      if (value.links.length < 1 && this.code == "RU") {
         this.refreshCourses();
       } else {
         this.links = value.links;
@@ -98,7 +98,6 @@ export class ExchangeCardComponent implements OnInit {
     this.isLoad = false;
     // @ts-ignore
     const dateString = this.selectedDate?.getFullYear() + '-' + this.convertData(this.selectedDate?.getMonth() + 1, 2) + '-' + this.convertData(this.selectedDate.getDate(), 2);
-    console.log(dateString);
     const checkDate = new Date();
     // @ts-ignore
     const checkDateString = checkDate?.getFullYear() + '-' + this.convertData(checkDate?.getMonth() + 1, 2) + '-' + this.convertData(checkDate.getDate(), 2);
@@ -164,11 +163,7 @@ export class ExchangeCardComponent implements OnInit {
 
   getByDate(event: Date) {
     this.isLoad = false;
-    console.log(event);
     this.selectedDate = event;
-    console.log(this.selectedDate);
-    //TODO: оправить даты
-
     const dateToString = this.selectedDate?.getFullYear() + '-' + this.convertData(this.selectedDate?.getMonth() + 1, 2) + '-' + this.convertData(this.selectedDate.getDate(), 2);
     const dateToString1 = this.selectedDate?.getFullYear() + '-' + this.convertData(this.selectedDate?.getMonth() + 1, 2) + '-' + this.convertData(this.selectedDate.getDate() - 1, 2);
     const dateToString2 = this.selectedDate?.getFullYear() + '-' + this.convertData(this.selectedDate?.getMonth() + 1, 2) + '-' + this.convertData(this.selectedDate.getDate() - 2, 2);
@@ -179,5 +174,13 @@ export class ExchangeCardComponent implements OnInit {
   convertData(val, resultLength = 2, innerChar = '0'): string {
     return (String(innerChar).repeat(resultLength)
       + String(val)).slice(String(val).length);
+  }
+
+  changeCode() {
+    this.isLoad = false;
+    const dateToString = this.selectedDate?.getFullYear() + '-' + this.convertData(this.selectedDate?.getMonth() + 1, 2) + '-' + this.convertData(this.selectedDate.getDate(), 2);
+    const dateToString1 = this.selectedDate?.getFullYear() + '-' + this.convertData(this.selectedDate?.getMonth() + 1, 2) + '-' + this.convertData(this.selectedDate.getDate() - 1, 2);
+    const dateToString2 = this.selectedDate?.getFullYear() + '-' + this.convertData(this.selectedDate?.getMonth() + 1, 2) + '-' + this.convertData(this.selectedDate.getDate() - 2, 2);
+    this.getAll(dateToString, dateToString1, dateToString2);
   }
 }

@@ -1,18 +1,15 @@
 package com.example.exchangerate.controllers;
 
-import com.example.exchangerate.models.ExchangeUnit;
 import com.example.exchangerate.models.UnitToUnit;
 import com.example.exchangerate.models.UnitToUnitId;
 import com.example.exchangerate.repositories.UnitToUnitRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api")
@@ -44,12 +41,12 @@ public class UnitToUnitController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/getByDateCode")
-    public ResponseEntity<List<UnitToUnit>> getByDateCode(@RequestBody String code, String date) {
+    @GetMapping(value = "/getByDateCode/{date}/{code}")
+    public ResponseEntity<List<UnitToUnit>> getByDateCode(@PathVariable(name = "date") String date,@PathVariable(name = "code")String code) {
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
         LocalDate localDate = LocalDate.parse(date, formatter);
-        var result = unitToUnitRepository.findById_FirstUnitId_CodeAndId_Date(code,localDate);
+        var result = unitToUnitRepository.findById_SecondUnitId_CodeAndId_Date(code,localDate);
         return new ResponseEntity<>(result, HttpStatus.OK);
 
     }

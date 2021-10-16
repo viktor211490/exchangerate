@@ -8,7 +8,9 @@ import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 export class WrapperComponent implements OnInit {
 
   show = true;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
