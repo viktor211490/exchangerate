@@ -1,11 +1,19 @@
-<div class="toolbar" role="banner" style="position: fixed">
+<div class="toolbar" role="banner" style="position: fixed; display: flex;">
   <img
     width="60"
     alt="Курс"
     src="/assets/pngwing.com.png"/>
   <span>Курс валют</span>
   <!-- TODO:Здесь контент для хедера -->
-  <button style="margin-left: 4pt;" (click)="refreshCourses()">Обновить данные о валютах</button>
+
+  <div style="float: right">
+    <button mat-icon-button aria-label="Кнопка обновления контента на выбранную дату" (click)="refreshCourses()">
+      <mat-icon>update</mat-icon>
+    </button>
+    <button mat-icon-button aria-label="Кнопка обновления контента на выбранную дату" [routerLink]="'admin'">
+      <mat-icon>settings</mat-icon>
+    </button>
+  </div>
 </div>
 
 <div class="content" role="main">
@@ -32,21 +40,28 @@
     <mat-spinner></mat-spinner>
   </div>
   <div *ngIf="isLoad" style="margin: 20pt auto auto 25%;width: 70%;">
-    <table mat-table [dataSource]="links" class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
       <ng-container matColumnDef="code">
         <th mat-header-cell *matHeaderCellDef> Код</th>
-        <td mat-cell *matCellDef="let element"> {{element.id.firstUnitId.code}} </td>
+        <td mat-cell class="text-info" *matCellDef="let element"> {{element.code}} </td>
       </ng-container>
-      <ng-container matColumnDef="nameRu">
+      <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Наименоваине</th>
-        <td mat-cell *matCellDef="let element"> {{element.id.firstUnitId.nameRu}} </td>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
       </ng-container>
+
       <ng-container matColumnDef="value">
         <th mat-header-cell *matHeaderCellDef> Рублей за единицу валюты</th>
         <td mat-cell *matCellDef="let element"> {{(1 / element.value).toFixed(2)}} </td>
       </ng-container>
-
-
+      <ng-container matColumnDef="value1prev">
+        <th mat-header-cell *matHeaderCellDef>Цена валюты вчера</th>
+        <td mat-cell *matCellDef="let element"> {{(1 / element.value1prev).toFixed(2)}} </td>
+      </ng-container>
+      <ng-container matColumnDef="value2prev">
+        <th mat-header-cell *matHeaderCellDef> Цена валюты позавчера</th>
+        <td mat-cell *matCellDef="let element"> {{(1 / element.value2prev).toFixed(2)}} </td>
+      </ng-container>
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>

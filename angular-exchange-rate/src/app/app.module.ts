@@ -9,6 +9,7 @@ import {AdminModule} from './pages/admin/admin.module';
 import {HttpClientModule} from "@angular/common/http";
 import { ExchangeCardComponent } from './pages/exchange-card/exchange-card.component';
 import {FormsModule} from "@angular/forms";
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {FormsModule} from "@angular/forms";
     BrowserAnimationsModule,
     CustomMatModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]

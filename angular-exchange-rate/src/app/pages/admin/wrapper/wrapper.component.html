@@ -2,16 +2,19 @@
   <button mat-icon-button (click)="drawer.toggle()">
     <mat-icon>menu</mat-icon>
   </button>
+  <button mat-icon-button [routerLink]="''">
+    <mat-icon>home</mat-icon>
+  </button>
 </mat-toolbar>
 <mat-sidenav-container color="primary">
   <mat-sidenav #drawer mode="side" [(opened)]="show">
     <mat-list role="list">
       <mat-list-item [routerLink]="'unit'">
-        <mat-icon mat-list-icon>home</mat-icon>
+        <mat-icon mat-list-icon>local_atm</mat-icon>
         <span>Валюты</span>
       </mat-list-item>
       <mat-list-item [routerLink]="'unitlinks'">
-        <mat-icon mat-list-icon>home</mat-icon>
+        <mat-icon mat-list-icon>insert_chart_outlined</mat-icon>
         <span>Соотношение валют на сегодня</span>
       </mat-list-item>
     </mat-list>

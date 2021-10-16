@@ -44,6 +44,17 @@ public class UnitToUnitController {
     }
 
     @CrossOrigin
+    @GetMapping(value = "/getByDateCode")
+    public ResponseEntity<List<UnitToUnit>> getByDateCode(@RequestBody String code, String date) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-d");
+        LocalDate localDate = LocalDate.parse(date, formatter);
+        var result = unitToUnitRepository.findById_FirstUnitId_CodeAndId_Date(code,localDate);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+
+    }
+
+    @CrossOrigin
     @PostMapping(value = "/create")
     public ResponseEntity<UnitToUnit> create(@RequestBody UnitToUnit unitToUnit) {
         try {
@@ -88,6 +99,17 @@ public class UnitToUnitController {
             LocalDate localDate = LocalDate.parse(data, formatter);
             var res = unitToUnitRepository.findAllById_Date(localDate);
             unitToUnitRepository.deleteAll(res);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+        }
+    }
+
+    @CrossOrigin
+    @DeleteMapping(value = "/delete")
+    public ResponseEntity<?> deleteBuId(@RequestBody UnitToUnitId id) {
+        try {
+            unitToUnitRepository.deleteById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.NOT_MODIFIED);

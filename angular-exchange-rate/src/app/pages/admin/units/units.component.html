@@ -1,12 +1,14 @@
-<div class="loader" *ngIf="isLoaded"></div>
+<div class="loader" *ngIf="isLoaded">
+  <mat-spinner></mat-spinner>
+</div>
 
 <div class="flex-center" *ngIf="!isLoaded">
   <div class="container-fluid">
-    <h1 id="tableLabel">Города</h1>
-    <button (click)="openDialog(edited)">Создать</button>
+    <h1 id="tableLabel">Валюты</h1>
+    <button class="btn btn-info" (click)="openDialog(edited)">Создать</button>
     <table class="table table-striped">
       <thead>
-      <tr>
+      <tr class="text-info">
         <td>Код</td>
         <td>Наименование</td>
         <td></td>
@@ -14,7 +16,7 @@
       </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let unit of units">
+      <tr *ngFor="let unit of units" class="text-light">
           <td>{{unit.code}}</td>
           <td>{{unit.nameRu}}</td>
           <td>

@@ -8,6 +8,7 @@ import {UnitsComponent} from "./units/units.component";
 import {UnitsLinkComponent} from "./units-link/units-link.component";
 import {FormsModule} from "@angular/forms";
 import { DialogComponent } from './units/dialog/dialog.component';
+import {LinkDialogComponent} from "./units-link/dialog/dialog.component";
 
 
 
@@ -16,7 +17,8 @@ import { DialogComponent } from './units/dialog/dialog.component';
     WrapperComponent,
     UnitsComponent,
     UnitsLinkComponent,
-    DialogComponent
+    DialogComponent,
+    LinkDialogComponent
   ],
   imports: [
     CommonModule,

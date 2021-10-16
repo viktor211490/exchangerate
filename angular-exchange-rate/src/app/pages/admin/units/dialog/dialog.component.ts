@@ -14,7 +14,7 @@ export class DialogComponent implements OnInit {
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    public unitServise: UnitService,
+    public unitService: UnitService,
     @Inject(MAT_DIALOG_DATA) public data: Unit,
   ) {
   }
@@ -24,8 +24,8 @@ export class DialogComponent implements OnInit {
     this.isLoaded = false;
   }
   save(){
-    this.unitServise.update(this.data).subscribe(value => {
-      this.dialogRef.close(this.data);
+    this.unitService.update(this.unit).subscribe(value => {
+      this.dialogRef.close(this.unit);
     })
   }
   onNoClick(): void {

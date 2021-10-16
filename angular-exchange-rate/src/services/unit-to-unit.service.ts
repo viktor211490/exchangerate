@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Unit} from "../models/unit";
-import {UnitToUnit} from "../models/unit-to-unit";
+import {UnitToUnit, UnitToUnitId} from "../models/unit-to-unit";
 
 
 @Injectable({
@@ -33,7 +33,11 @@ export class UnitToUnitService {
     return this.http.put<UnitToUnit>(`${this.baseUrl}/update`, model);
   }
 
-  delete(data: string): Observable<any> {
+  deleteAllByDate(data: string): Observable<any> {
     return this.http.delete<any>(this.baseUrl + '/delete/' + data);
+  }
+  //TODO: Не хорошо,но пока сойдёт. (Черевато ошибками при нормальной разработке.)
+  deleteById(unit: any): Observable<any> {
+    return this.http.delete<any>(`${this.baseUrl}/delete`, unit);
   }
 }

@@ -5,7 +5,7 @@ export class UnitToUnit {
   value: number
 }
 
-class UnitToUnitId {
+export class UnitToUnitId {
   firstUnitId: Unit
   secondUnitId: Unit
   date: string
